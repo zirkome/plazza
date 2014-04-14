@@ -1,11 +1,5 @@
 ##
-## Makefile for Makefile in /home/Epitech
-##
-## Made by moriss_h
-## Login   <moriss_h@epitech.net>
-##
-## Started on  Sun Jun  9 03:35:24 2013 Hugues
-## Last update Mon Apr  7 09:18:20 2014 Hugues
+## Makefile for plazza
 ##
 
 SRC		=	main.cpp
