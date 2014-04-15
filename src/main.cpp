@@ -1,6 +1,23 @@
 #include <iostream>
 #include <exception>
 
+#include "PThread.hpp"
+
+class Task
+{
+private:
+  char *_param;
+public:
+  Task(char *str) : _param(str)
+  {
+  }
+
+  void operator()()
+  {
+    std::cout << _param << std::endl;
+  }
+};
+
 int main(int argc, char *argv[])
 {
   try
@@ -11,7 +28,10 @@ int main(int argc, char *argv[])
           return (1);
         }
       for (int i = 0; i < argc; i++)
-        std::cout << argv[i] << std::endl;
+	{
+	  Task lol(argv[i]);
+	  PThread<Task> toto(lol);
+	}
     }
   catch (const std::exception& e)
     {

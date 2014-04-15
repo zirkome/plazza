@@ -19,7 +19,7 @@ CFLAGS		+=	-I$(INCDIR)
 CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
 
-LDFLAGS		+=	-Wl,-O1
+LDFLAGS		+=	-Wl,-O1 -lpthread
 
 OBJ		=	$(patsubst %.cpp,${OBJDIR}%.o, $(SRC))
 
