@@ -2,7 +2,8 @@
 ## Makefile for plazza
 ##
 
-SRC		=	main.cpp
+SRC		=	main.cpp \
+			Fault.cpp
 
 CC		=	g++
 
@@ -14,7 +15,7 @@ OBJDIR		=	obj/
 SRCDIR		=	src/
 INCDIR		=	inc/
 
-CFLAGS		+=	-I$(INCDIR) -I../nibutils/inc/
+CFLAGS		+=	-I$(INCDIR)
 CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
 
