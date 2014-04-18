@@ -2,6 +2,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -19,6 +20,8 @@ NamedPipe::NamedPipe(const std::string &path)
 
 NamedPipe::~NamedPipe()
 {
+  if (unlink(_path.c_str()))
+    std::cerr << "error: ~NamedPipe: unlink failed" << std::endl;
 }
 
 int		NamedPipe::open(int mode)
