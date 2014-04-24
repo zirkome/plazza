@@ -1,7 +1,27 @@
 #include <iostream>
 #include <exception>
+#include <unistd.h>
 
-int main(int argc, char *argv[])
+#include "ITask.hpp"
+#include "PThread.hpp"
+#include "PMutex.hpp"
+
+class Task : public ITask
+{
+private:
+  char *_param;
+public:
+  Task(char *str) : _param(str)
+  {
+  }
+
+  virtual void execute()
+  {
+    std::cout << _param << std::endl;
+  }
+};
+
+int main(int argc, __attribute__((unused)) char *argv[])
 {
   try
     {
@@ -11,7 +31,10 @@ int main(int argc, char *argv[])
           return (1);
         }
       for (int i = 0; i < argc; i++)
-        std::cout << argv[i] << std::endl;
+	{
+	  Task lol(argv[i]);
+	  PThread<Task> toto(lol);
+	}
     }
   catch (const std::exception& e)
     {
