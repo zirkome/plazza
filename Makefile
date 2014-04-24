@@ -4,6 +4,7 @@
 
 SRC		=	main.cpp \
 			PMutex.cpp \
+			PCondVar.cpp \
 			ScopeLock.cpp \
 			Fault.cpp
 

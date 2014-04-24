@@ -8,20 +8,19 @@
 /*
  * Posix Mutex C++ encapsulation
  */
-class PMutex : public IMutex<pthread_mutex_t>
+class PMutex : public IMutex
 {
+public:
+  pthread_mutex_t mutex;
+
 public:
   PMutex(const pthread_mutexattr_t *attr = NULL);
   virtual ~PMutex();
 
 public:
-  virtual pthread_mutex_t *getMutex();
   virtual void lock();
   virtual void unlock();
   virtual void trylock();
-
-private:
-  pthread_mutex_t _mutex;
 };
 
 #endif /* _MUTEX_H_ */
