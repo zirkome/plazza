@@ -1,7 +1,7 @@
 #include "ScopeLock.hpp"
 
-ScopeLock::ScopeLock(IMutex<pthread_mutex_t>& mutex)
-  : _mutex(mutex)
+ScopeLock::ScopeLock(IMutex& mtx)
+  : _mutex(mtx)
 {
   _mutex.lock();
 }

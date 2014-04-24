@@ -8,11 +8,11 @@
 class ScopeLock
 {
 public:
-  ScopeLock(IMutex<pthread_mutex_t>& mutex);
+  ScopeLock(IMutex& mutex);
   virtual ~ScopeLock();
 
 private:
-  IMutex<pthread_mutex_t>& _mutex;
+  IMutex& _mutex;
 };
 
 #endif /* _SCOPELOCK_H_ */
