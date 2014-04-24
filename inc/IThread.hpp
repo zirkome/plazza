@@ -17,6 +17,7 @@ public:
 public:
   virtual void join(void** retval) = 0;
   virtual State getState() = 0;
+  virtual void setState(State state) = 0;
 };
 
 #endif /* _ITHREAD_H_ */

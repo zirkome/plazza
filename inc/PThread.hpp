@@ -6,16 +6,16 @@
 # include <cstring>
 # include <cerrno>
 
+# include "ITask.hpp"
 # include "IThread.hpp"
 
 /*
  * Posix Thread C++ Encapsulation
  */
-template <class T>
 class PThread : public IThread
 {
 public:
-  PThread(T& f) : _routine(f), _state(THR_WAITING)
+  PThread(ITask *f) : _routine(f), _state(THR_WAITING), _exit(false)
   {
     if (pthread_create(&_thread, NULL, &PThread::handleThread, this) != 0)
       throw std::runtime_error(std::string("pthread_create") + strerror(errno));
@@ -24,15 +24,13 @@ public:
 
   virtual ~PThread()
   {
+    setExit(true);
     join(NULL);
   }
 
 public:
-
   virtual void join(void **retval)
   {
-    if (getState() != IThread::THR_ALIVE)
-      return;
     if (pthread_join(_thread, retval) != 0)
       throw std::runtime_error(std::string("pthread_join") + strerror(errno));
     _state = THR_DEAD;
@@ -43,24 +41,47 @@ public:
     return _state;
   }
 
+  virtual void setState(State state)
+  {
+    _state = state;
+  }
+
+  void setExit(bool exit)
+  {
+    _exit = exit;
+  }
+
 private:
   static void *handleThread(void *arg)
   {
     PThread* that = reinterpret_cast<PThread*>(arg);
 
-    that->getRoutine()();
+    while (!that->getExit())
+      {
+	if (that->getState() == THR_ALIVE)
+	  {
+	    that->getRoutine()->execute();
+	    that->setState(THR_WAITING);
+	  }
+      }
     return (NULL);
   }
 
-  T& getRoutine()
+  ITask *getRoutine()
   {
     return _routine;
   }
 
+  bool getExit()
+  {
+    return _exit;
+  }
+
 private:
-  T& _routine;
+  ITask* _routine;
   pthread_t _thread;
   State	_state;
+  bool _exit;
 };
 
 #endif /* _THREAD_H_ */

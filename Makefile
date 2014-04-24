@@ -3,6 +3,8 @@
 ##
 
 SRC		=	main.cpp \
+			PMutex.cpp \
+			ScopeLock.cpp \
 			Fault.cpp
 
 CC		=	g++

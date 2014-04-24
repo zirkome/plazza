@@ -1,9 +1,12 @@
 #include <iostream>
 #include <exception>
+#include <unistd.h>
 
+#include "ITask.hpp"
 #include "PThread.hpp"
+#include "PMutex.hpp"
 
-class Task
+class Task : public ITask
 {
 private:
   char *_param;
@@ -12,13 +15,13 @@ public:
   {
   }
 
-  void operator()()
+  virtual void execute()
   {
     std::cout << _param << std::endl;
   }
 };
 
-int main(int argc, char *argv[])
+int main(int argc, __attribute__((unused)) char *argv[])
 {
   try
     {
