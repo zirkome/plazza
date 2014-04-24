@@ -1,23 +1,35 @@
 #ifndef PROCUNIX_HPP_INCLUDED
-#define PROCUNIX_HPP_INCLUDED
+# define PROCUNIX_HPP_INCLUDED
 
-#include "IProcess.hpp"
+# include <stdexcept>
+# include <string>
+# include <cstring>
+# include <cerrno>
+# include <cstdlib>
+
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+
+
+# include "ITask.hpp"
+# include "IProcess.hpp"
 
 class ProcUnix : public IProcess
 {
 public:
-  ProcUnix();
+  ProcUnix(ITask *f);
   virtual ~ProcUnix();
 
-  template<typename T>
-  virtual void createProcess(void (T::*call)(T& that), T& that);
+  virtual void join(void** ret);
 
-  virtual State status() const;
-  virtual void killProcess();
-  virtual void waitProcess() const;
+  virtual State getState() {return _state;};
+  virtual void setState(State state) {_state = state;};
 
 private:
-
+  ITask* _routine;
+  pid_t _pid;
+  State _state;
 };
 
 #endif // PROCUNIX_HPP_INCLUDED

@@ -5,6 +5,7 @@
 #include "ITask.hpp"
 #include "PThread.hpp"
 #include "PMutex.hpp"
+#include "ProcUnix.hpp"
 
 class Task : public ITask
 {
@@ -31,10 +32,10 @@ int main(int argc, __attribute__((unused)) char *argv[])
           return (1);
         }
       for (int i = 0; i < argc; i++)
-	{
-	  Task lol(argv[i]);
-	  PThread<Task> toto(lol);
-	}
+        {
+          Task lol(argv[i]);
+          ProcUnix l(&lol);
+        }
     }
   catch (const std::exception& e)
     {

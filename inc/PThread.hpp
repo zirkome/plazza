@@ -15,7 +15,8 @@
 class PThread : public IThread
 {
 public:
-  PThread(ITask *f) : _routine(f), _state(THR_WAITING), _exit(false)
+  PThread(ITask *f)
+    : _routine(f), _state(THR_WAITING), _exit(false)
   {
     if (pthread_create(&_thread, NULL, &PThread::handleThread, this) != 0)
       throw std::runtime_error(std::string("pthread_create") + strerror(errno));
@@ -58,11 +59,11 @@ private:
 
     while (!that->getExit())
       {
-	if (that->getState() == THR_ALIVE)
-	  {
-	    that->getRoutine()->execute();
-	    that->setState(THR_WAITING);
-	  }
+        if (that->getState() == THR_ALIVE)
+          {
+            that->getRoutine()->execute();
+            that->setState(THR_WAITING);
+          }
       }
     return (NULL);
   }

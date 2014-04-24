@@ -5,6 +5,7 @@
 SRC		=	main.cpp \
 			PMutex.cpp \
 			ScopeLock.cpp \
+			ProcUnix.cpp \
 			Fault.cpp
 
 CC		=	g++
