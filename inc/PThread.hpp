@@ -8,24 +8,33 @@
 
 # include "ITask.hpp"
 # include "IThread.hpp"
+# include "PMutex.hpp"
+# include "PCondVar.hpp"
 
 /*
  * Posix Thread C++ Encapsulation
  */
 class PThread : public IThread
 {
+private:
+  ITask* _task;
+  PMutex _mutex;
+  PCondVar _cv;
+  pthread_t _thread;
+  State	_state;
+
 public:
-  PThread(ITask *f)
-    : _routine(f), _state(THR_WAITING), _exit(false)
+  PThread()
+    : _task(NULL), _cv(_mutex), _state(THR_WAITING)
   {
     if (pthread_create(&_thread, NULL, &PThread::handleThread, this) != 0)
       throw std::runtime_error(std::string("pthread_create") + strerror(errno));
-    _state = THR_ALIVE;
   }
 
   virtual ~PThread()
   {
-    setExit(true);
+    _state = THR_DEAD;
+    _cv.notify();
     join(NULL);
   }
 
@@ -37,7 +46,21 @@ public:
     _state = THR_DEAD;
   }
 
-  virtual State getState()
+  int setCancelModeAsynchronous() const
+  {
+    int status = pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, 0);
+    if (status != 0) return status;
+
+    return pthread_setcancelstate( PTHREAD_CANCEL_ENABLE, 0);
+  }
+
+  virtual int cancel() const
+  {
+    int status = pthread_cancel(_thread);
+    return status;
+  }
+
+  virtual State getState()  const
   {
     return _state;
   }
@@ -47,9 +70,25 @@ public:
     _state = state;
   }
 
-  void setExit(bool exit)
+  virtual ITask *getTask()  const
   {
-    _exit = exit;
+    return _task;
+  }
+
+  //TODO
+  // if (task == NULL)
+  //   throw ThreadException("The task can't be null.");
+  virtual void setTask(ITask *task)
+  {
+    _task = task;
+    _state = THR_ALIVE;
+    _cv.notify();
+  }
+
+private:
+  PCondVar& getCondVar()
+  {
+    return _cv;
   }
 
 private:
@@ -57,32 +96,20 @@ private:
   {
     PThread* that = reinterpret_cast<PThread*>(arg);
 
-    while (!that->getExit())
+    while (true)
       {
-        if (that->getState() == THR_ALIVE)
-          {
-            that->getRoutine()->execute();
-            that->setState(THR_WAITING);
-          }
+	while (that->getState() != THR_DEAD && that->getTask() == NULL)
+	  that->getCondVar().wait();
+
+	if (that->getState() == THR_DEAD)
+	  pthread_exit(NULL);
+
+	that->getTask()->execute();
+	that->setState(THR_WAITING);
+	that->setTask(NULL);
       }
     return (NULL);
   }
-
-  ITask *getRoutine()
-  {
-    return _routine;
-  }
-
-  bool getExit()
-  {
-    return _exit;
-  }
-
-private:
-  ITask* _routine;
-  pthread_t _thread;
-  State	_state;
-  bool _exit;
 };
 
 #endif /* _THREAD_H_ */
