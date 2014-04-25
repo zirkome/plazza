@@ -36,7 +36,7 @@ int main(int argc, __attribute__((unused)) char *argv[])
       std::vector<ITask*> task;
       for (int i = 0; i < 52; i++)
         {
-          task.push_back(new Task("sdf"));
+          task.push_back(new Task("a"));
         }
       ThreadPool<PThread> pol(task);
     }

@@ -15,15 +15,18 @@ public:
   {
     _pool.reserve(task.size());
     int i = 0;
-    for (std::vector<ITask*>::const_iterator it = task.begin(), end = task.end(); it != end; ++it)
+    for (std::vector<ITask*>::const_iterator it = task.begin(), end = task.end();
+	 it != end; ++it)
       {
-        _pool[i] = new T(*it);
+        _pool[i] = new T();
+	_pool[i]->setTask(*it);
       }
   };
 
   ~ThreadPool()
   {
-    for (std::vector<IThread*>::iterator it = _pool.begin(), end = _pool.end(); it != end; ++it)
+    for (std::vector<IThread*>::iterator it = _pool.begin(), end = _pool.end();
+	 it != end; ++it)
       {
         delete *it;
       }
