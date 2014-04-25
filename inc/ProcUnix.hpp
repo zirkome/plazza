@@ -21,10 +21,9 @@ public:
   ProcUnix(ITask &f);
   virtual ~ProcUnix();
 
-  virtual void join(void** ret);
+  virtual void wait();
 
-  virtual State getState() {return _state;};
-  virtual void setState(State state) {_state = state;};
+  virtual State getState() const {return _state;};
 
 private:
   ITask& _routine;

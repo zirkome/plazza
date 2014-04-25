@@ -1,14 +1,14 @@
 #include "ProcUnix.hpp"
 
 ProcUnix::ProcUnix(ITask &f)
-  : _routine(f), _state(THR_WAITING)
+  : _routine(f), _state(PROC_DEAD)
 {
   _pid = fork();
   if (_pid == -1)
     throw std::runtime_error(std::string("fork ") + strerror(errno));
   if (_pid > 0)
     {
-      _state = THR_ALIVE;
+      _state = PROC_ALIVE;
     }
   else
     {
@@ -26,17 +26,16 @@ ProcUnix::ProcUnix(ITask &f)
 
 ProcUnix::~ProcUnix()
 {
-  join(NULL);
+  wait();
 }
 
-void ProcUnix::join(void** ret)
+void ProcUnix::wait()
 {
   int reur;
 
-  (void)ret;
-  if (_state != THR_ALIVE)
+  if (_state != PROC_ALIVE)
     return;
   if (waitpid(_pid, &reur, 0) < 0)
     throw std::runtime_error(std::string("process_wait") + strerror(errno));
-  _state = THR_DEAD;
+  _state = PROC_DEAD;
 }
