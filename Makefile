@@ -8,7 +8,9 @@ SRC		=	main.cpp \
 			ScopeLock.cpp \
 			ProcUnix.cpp \
 			TimeHandling.cpp \
-			Fault.cpp
+			Fault.cpp \
+			Reception.cpp \
+			Kitchen.cpp
 
 CC		=	g++
 FILETYPE	=	.cpp
