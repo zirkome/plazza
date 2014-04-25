@@ -1,13 +1,23 @@
 #ifndef KITCHEN_H
-#define KITCHEN_H
+# define KITCHEN_H
+
+# include <string>
+
+# include "IProcess.hpp"
+# include "NamedPipe.hpp"
+
+# include "KitchenHandling.hpp"
 
 class Kitchen
 {
 public:
-  Kitchen();
+  Kitchen(const std::string& name);
   virtual ~Kitchen();
-private:
 
+private:
+  NamedPipe _in;
+  NamedPipe _out;
+  IProcess *_process;
 };
 
 #endif // KITCHEN_H

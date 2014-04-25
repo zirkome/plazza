@@ -35,6 +35,8 @@ int main(int argc, char *argv[])
         throw std::runtime_error("Wrong argument type");
 
       Reception boboPizza(multiplier, cookPerKitchen, stockRenewalTime);
+
+      boboPizza.openPizza();
     }
   catch (const std::exception& e)
     {

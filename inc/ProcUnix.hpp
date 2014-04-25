@@ -18,7 +18,7 @@
 class ProcUnix : public IProcess
 {
 public:
-  ProcUnix(ITask *f);
+  ProcUnix(ITask &f);
   virtual ~ProcUnix();
 
   virtual void join(void** ret);
@@ -27,7 +27,7 @@ public:
   virtual void setState(State state) {_state = state;};
 
 private:
-  ITask* _routine;
+  ITask& _routine;
   pid_t _pid;
   State _state;
 };
