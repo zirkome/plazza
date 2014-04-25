@@ -7,6 +7,7 @@
 #include "PMutex.hpp"
 #include "ProcUnix.hpp"
 #include "ThreadPool.hpp"
+#include "TimeHandling.hpp"
 
 class Task : public ITask
 {
@@ -28,6 +29,8 @@ int main(int argc, __attribute__((unused)) char *argv[])
 {
   try
     {
+    	TimeHandler time(1.0 / 5.0);
+
       if (argc != 4)
         {
           std::cerr << "Invalid number of arguments" << std::endl;
