@@ -7,6 +7,7 @@ SRC		=	main.cpp \
 			PCondVar.cpp \
 			ScopeLock.cpp \
 			ProcUnix.cpp \
+			ThreadPool.cpp \
 			Fault.cpp
 
 CC		=	g++
