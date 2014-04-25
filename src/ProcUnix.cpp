@@ -1,6 +1,6 @@
 #include "ProcUnix.hpp"
 
-ProcUnix::ProcUnix(ITask* f)
+ProcUnix::ProcUnix(ITask &f)
   : _routine(f), _state(THR_WAITING)
 {
   _pid = fork();
@@ -14,7 +14,7 @@ ProcUnix::ProcUnix(ITask* f)
     {
       try
         {
-          f->execute();
+          f.execute();
         }
       catch (std::exception& e)
         {

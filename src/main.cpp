@@ -1,47 +1,42 @@
 #include <iostream>
 #include <exception>
+#include <stdexcept>
+#include <sstream>
+
 #include <unistd.h>
 
-#include "ITask.hpp"
-#include "PThread.hpp"
-#include "PMutex.hpp"
-#include "ProcUnix.hpp"
-#include "ThreadPool.hpp"
-#include "TimeHandling.hpp"
+#include "Reception.hpp"
 
-class Task : public ITask
-{
-private:
-  char *_param;
-public:
-  Task(char *str) : _param(str)
-  {
-  }
-
-  virtual void execute()
-  {
-    std::cout << _param << std::endl;
-    std::cout.flush();
-  }
-};
-
-int main(int argc, __attribute__((unused)) char *argv[])
+int main(int argc, char *argv[])
 {
   try
     {
-    	TimeHandler time(1.0 / 5.0);
+      TimeHandler time(1.0 / 5.0);
+      std::stringstream ss;
+      float multiplier;
+      size_t cookPerKitchen;
+      float stockRenewalTime;
 
       if (argc != 4)
         {
-          std::cerr << "Invalid number of arguments" << std::endl;
+          std::cerr << "Usage: " << argv[0] << " multiplier cooker_per_kitchen stockRenewalTime" << std::endl;
           return (1);
         }
-      std::vector<ITask*> task;
-      for (int i = 0; i < 52; i++)
-        {
-          task.push_back(new Task("a"));
-        }
-      ThreadPool<PThread> pol(task);
+      ss.str(argv[1]);
+      if (!(ss >> multiplier))
+        throw std::runtime_error("Wrong argument type");
+      ss.clear();
+      ss.str(argv[2]);
+      if (!(ss >> cookPerKitchen))
+        throw std::runtime_error("Wrong argument type");
+      ss.clear();
+      ss.str(argv[3]);
+      if (!(ss >> stockRenewalTime))
+        throw std::runtime_error("Wrong argument type");
+
+      Reception boboPizza(multiplier, cookPerKitchen, stockRenewalTime);
+
+      boboPizza.openPizza();
     }
   catch (const std::exception& e)
     {

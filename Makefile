@@ -7,8 +7,12 @@ SRC		=	main.cpp \
 			PCondVar.cpp \
 			ScopeLock.cpp \
 			ProcUnix.cpp \
+			NamedPipe.cpp \
 			TimeHandling.cpp \
-			Fault.cpp
+			Fault.cpp \
+			Reception.cpp \
+			Kitchen.cpp \
+			KitchenHandling.cpp
 
 CC		=	g++
 FILETYPE	=	.cpp
