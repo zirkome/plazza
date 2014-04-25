@@ -6,6 +6,7 @@
 #include "PThread.hpp"
 #include "PMutex.hpp"
 #include "ProcUnix.hpp"
+#include "ThreadPool.hpp"
 
 class Task : public ITask
 {
@@ -19,6 +20,7 @@ public:
   virtual void execute()
   {
     std::cout << _param << std::endl;
+    std::cout.flush();
   }
 };
 
@@ -31,11 +33,12 @@ int main(int argc, __attribute__((unused)) char *argv[])
           std::cerr << "Invalid number of arguments" << std::endl;
           return (1);
         }
-      for (int i = 0; i < argc; i++)
+      std::vector<ITask*> task;
+      for (int i = 0; i < 52; i++)
         {
-          Task lol(argv[i]);
-          ProcUnix l(&lol);
+          task.push_back(new Task("sdf"));
         }
+      ThreadPool<PThread> pol(task);
     }
   catch (const std::exception& e)
     {
