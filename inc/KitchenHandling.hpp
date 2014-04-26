@@ -5,6 +5,7 @@
 
 # include "ITask.hpp"
 # include "NamedPipe.hpp"
+# include "ThreadPool.hpp"
 
 class KitchenHandling : public ITask
 {
