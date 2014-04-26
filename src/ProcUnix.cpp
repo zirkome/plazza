@@ -1,5 +1,6 @@
 #include "ProcUnix.hpp"
 
+#include <iostream>
 ProcUnix::ProcUnix(ITask &f)
   : _routine(f), _state(PROC_DEAD)
 {

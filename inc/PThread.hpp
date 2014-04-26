@@ -51,7 +51,7 @@ public:
     int status = pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, 0);
     if (status != 0) return status;
 
-    return pthread_setcancelstate( PTHREAD_CANCEL_ENABLE, 0);
+    return pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, 0);
   }
 
   virtual int cancel() const
@@ -98,17 +98,17 @@ private:
 
     while (true)
       {
-	while (that->getState() != THR_DEAD && that->getTask() == NULL)
-	  that->getCondVar().wait();
+        while (that->getState() != THR_DEAD && that->getTask() == NULL)
+          that->getCondVar().wait();
 
-	if (that->getState() == THR_DEAD)
-	  pthread_exit(NULL);
+        if (that->getState() == THR_DEAD)
+          return NULL;
 
-	that->getTask()->execute();
-	that->setState(THR_WAITING);
-	that->setTask(NULL);
+        that->getTask()->execute();
+        that->setState(THR_WAITING);
+        that->setTask(NULL);
       }
-    return (NULL);
+    return NULL;
   }
 };
 

@@ -15,9 +15,8 @@ public:
   ThreadPool(size_t nbWorkers)
   {
     _pool.reserve(nbWorkers);
-    for (std::vector<IThread*>::iterator it = _pool.begin(), end = _pool.end();
-         it != end; ++it)
-      (*it) = new T();
+    for (int i = 0; i < nbWorkers; ++i)
+      _pool.push_back(new T());
   };
 
   ~ThreadPool()
@@ -35,13 +34,13 @@ public:
 
     _tasks.push_back(task);
     for (std::vector<IThread*>::const_iterator it = _pool.begin(), end = _pool.end();
-         it != end; ++it)
+         it != end && _tasks.size() > 0; ++it)
       {
         if ((*it)->getState() == IThread::THR_WAITING)
           {
             tmpTask = _tasks.front();
-            _tasks.pop_front();
             (*it)->setTask(tmpTask);
+            _tasks.pop_front();
           }
       }
   };
