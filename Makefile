@@ -12,7 +12,10 @@ SRC		=	main.cpp \
 			Fault.cpp \
 			Reception.cpp \
 			Kitchen.cpp \
-			KitchenHandling.cpp
+			KitchenHandling.cpp \
+			Point2d.cpp \
+			Box.cpp \
+			Graphique.cpp
 
 CC		=	g++
 FILETYPE	=	.cpp
@@ -30,7 +33,7 @@ CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
 
 LDFLAGS		+=	-Wl,-O1
-LDFLAGS		+=	-pthread
+LDFLAGS		+=	-pthread -lSDL2
 
 OBJ		=	$(patsubst %${FILETYPE},${OBJDIR}%.o, $(SRC))
 
