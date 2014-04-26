@@ -1,6 +1,7 @@
 #ifndef _THREAD_H_
 # define _THREAD_H_
 
+# include <iostream>
 # include <stdexcept>
 # include <string>
 # include <cstring>
@@ -95,18 +96,24 @@ private:
   static void *handleThread(void *arg)
   {
     PThread* that = reinterpret_cast<PThread*>(arg);
-
-    while (true)
+    try
       {
-        while (that->getState() != THR_DEAD && that->getTask() == NULL)
-          that->getCondVar().wait();
+        while (true)
+          {
+            while (that->getState() != THR_DEAD && that->getTask() == NULL)
+              that->getCondVar().wait();
 
-        if (that->getState() == THR_DEAD)
-          return NULL;
+            if (that->getState() == THR_DEAD)
+              return NULL;
 
-        that->getTask()->execute();
-        that->setState(THR_WAITING);
-        that->setTask(NULL);
+            that->getTask()->execute();
+            that->setState(THR_WAITING);
+            that->setTask(NULL);
+          }
+      }
+    catch (std::exception& e)
+      {
+        std::cerr << e.what() << std::endl;
       }
     return NULL;
   }
