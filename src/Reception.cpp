@@ -12,7 +12,7 @@ Reception::Reception(float cookMultiplier, size_t cookPerKitchen, float stockRen
   _sdl = new PThread();
   _sdl->setTask(new Graphique(*this));
   tmp << _KitchenCounter;
-  _kitchens.push_back(new Kitchen(tmp.str()));
+  _kitchens.push_back(new Kitchen(tmp.str(), _cookMultiplier));
   ++_KitchenCounter;
 }
 

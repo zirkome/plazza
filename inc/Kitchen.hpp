@@ -11,7 +11,7 @@
 class Kitchen
 {
 public:
-  Kitchen(const std::string& name);
+  Kitchen(const std::string& name, size_t nbCookers);
   virtual ~Kitchen();
 
 private:

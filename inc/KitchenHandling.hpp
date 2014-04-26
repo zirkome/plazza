@@ -10,7 +10,7 @@
 class KitchenHandling : public ITask
 {
 public:
-  KitchenHandling(NamedPipe &in, NamedPipe &out);
+  KitchenHandling(NamedPipe &in, NamedPipe &out, size_t nbCookers);
   ~KitchenHandling();
 
   virtual void execute();
@@ -18,6 +18,7 @@ public:
 private:
   NamedPipe& _in;
   NamedPipe& _out;
+  size_t _nbCookers;
 };
 
 #endif // KITCHENHANDLING_HPP_INCLUDED
