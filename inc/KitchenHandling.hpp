@@ -2,10 +2,12 @@
 # define KITCHENHANDLING_HPP_INCLUDED
 
 # include <iostream>
+# include <deque>
 
 # include "ITask.hpp"
 # include "NamedPipe.hpp"
 # include "ThreadPool.hpp"
+# include "Cook.hpp"
 
 class KitchenHandling : public ITask
 {
@@ -19,8 +21,6 @@ private:
   INamedPipe& _in;
   INamedPipe& _out;
   size_t _nbCookers;
-
-  //std::deque<Cook> _furnaces;
 };
 
 #endif // KITCHENHANDLING_HPP_INCLUDED

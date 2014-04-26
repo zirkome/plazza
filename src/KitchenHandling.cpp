@@ -21,10 +21,11 @@ void KitchenHandling::execute()
   while (true)
     {
 
-//read a command
-
-
+//read
+//if a command
+//cooker.queueTask(Task);
+//else if status poll
 //write status info
-
+      cookers.executeQueuedTask();
     }
 }

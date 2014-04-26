@@ -15,7 +15,7 @@ public:
   ThreadPool(size_t nbWorkers)
   {
     _pool.reserve(nbWorkers);
-    for (int i = 0; i < nbWorkers; ++i)
+    for (size_t i = 0; i < nbWorkers; ++i)
       _pool.push_back(new T());
   };
 
@@ -30,9 +30,13 @@ public:
 
   void queueTask(ITask *task)
   {
+    _tasks.push_back(task);
+  };
+
+  void executeQueuedTask()
+  {
     ITask *tmpTask;
 
-    _tasks.push_back(task);
     for (std::vector<IThread*>::const_iterator it = _pool.begin(), end = _pool.end();
          it != end && _tasks.size() > 0; ++it)
       {
@@ -43,6 +47,19 @@ public:
             _tasks.pop_front();
           }
       }
+  };
+
+  std::vector<IThread::State> threadStatus() const
+  {
+    std::vector<IThread::State> res;
+
+    res.reserve(_pool.size());
+    for (std::vector<IThread*>::const_iterator it = _pool.begin(), end = _pool.end();
+         it != end && _tasks.size() > 0; ++it)
+      {
+        res.push_back((*it)->getState());
+      }
+    return res;
   };
 
   bool allWorkerBusy() const

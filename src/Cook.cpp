@@ -13,5 +13,5 @@ Cook::~Cook()
 
 void Cook::execute()
 {
-  std::cout << "Hello I'm a cooking this delicious pizza :" << std::endl;
+  std::cout << "Hello I'm a cooking this delicious pizza !" << std::endl;
 }
