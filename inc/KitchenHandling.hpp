@@ -10,14 +10,17 @@
 class KitchenHandling : public ITask
 {
 public:
-  KitchenHandling(NamedPipe &in, NamedPipe &out);
+  KitchenHandling(INamedPipe &in, INamedPipe &out, size_t nbCookers);
   ~KitchenHandling();
 
   virtual void execute();
 
 private:
-  NamedPipe& _in;
-  NamedPipe& _out;
+  INamedPipe& _in;
+  INamedPipe& _out;
+  size_t _nbCookers;
+
+  //std::deque<Cook> _furnaces;
 };
 
 #endif // KITCHENHANDLING_HPP_INCLUDED
