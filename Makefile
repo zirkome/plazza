@@ -13,6 +13,7 @@ SRC		=	main.cpp \
 			Reception.cpp \
 			Kitchen.cpp \
 			KitchenHandling.cpp \
+			Cook.cpp \
 			Point2d.cpp \
 			Box.cpp \
 			Graphique.cpp \
