@@ -4,6 +4,10 @@
 # include <deque>
 # include <iterator>
 
+class Reception;
+
+# include "Graphique.hpp"
+
 # include "Kitchen.hpp"
 # include "TimeHandling.hpp"
 
@@ -23,7 +27,7 @@ private:
   float _stockRenewalTime;
 
   int _KitchenCounter;
-
+  IThread *_sdl;
   std::deque<Kitchen*> _kitchens;
 };
 
