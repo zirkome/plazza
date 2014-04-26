@@ -15,7 +15,12 @@ SRC		=	main.cpp \
 			KitchenHandling.cpp \
 			Point2d.cpp \
 			Box.cpp \
-			Graphique.cpp
+			Graphique.cpp \
+			APizza.cpp \
+			Regina.cpp \
+			Margarita.cpp \
+			Fantasia.cpp \
+			Americana.cpp
 
 CC		=	g++
 FILETYPE	=	.cpp
