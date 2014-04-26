@@ -4,7 +4,7 @@
 # include <string>
 
 # include "IProcess.hpp"
-# include "NamedPipe.hpp"
+# include "INamedPipe.hpp"
 
 # include "KitchenHandling.hpp"
 
@@ -14,9 +14,11 @@ public:
   Kitchen(const std::string& name, size_t nbCookers);
   virtual ~Kitchen();
 
+
+
 private:
-  NamedPipe _in;
-  NamedPipe _out;
+  INamedPipe* _in;
+  INamedPipe* _out;
   IProcess *_process;
 };
 

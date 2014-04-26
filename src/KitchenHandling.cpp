@@ -4,10 +4,9 @@
 
 #include "KitchenHandling.hpp"
 
-KitchenHandling::KitchenHandling(NamedPipe &in, NamedPipe &out, size_t nbCookers)
+KitchenHandling::KitchenHandling(INamedPipe &in, INamedPipe &out, size_t nbCookers)
   : _in(in), _out(out), _nbCookers(nbCookers)
 {
-
 }
 
 KitchenHandling::~KitchenHandling()
@@ -19,8 +18,13 @@ void KitchenHandling::execute()
 {
   ThreadPool<PThread> cookers(_nbCookers);
 
-  std::cout << "Hello I'm a kitchen and I'm magic !!" << std::endl;
+  while (true)
+    {
 
-  cookers.queueTask(new Cook);
-  cookers.queueTask(new Cook);
+//read a command
+
+
+//write status info
+
+    }
 }
