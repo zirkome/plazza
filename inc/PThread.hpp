@@ -36,6 +36,7 @@ public:
   {
     _state = THR_DEAD;
     _cv.notify();
+    cancel();
     join(NULL);
   }
 
