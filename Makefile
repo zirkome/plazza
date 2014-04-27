@@ -21,7 +21,8 @@ SRC		=	main.cpp \
 			Regina.cpp \
 			Margarita.cpp \
 			Fantasia.cpp \
-			Americana.cpp
+			Americana.cpp \
+			Command.cpp
 
 CC		=	g++
 FILETYPE	=	.cpp
