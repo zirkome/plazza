@@ -34,6 +34,7 @@ void KitchenHandling::execute()
   std::string line;
   _out = new OutNamedPipe(_outName);
   _in = new InNamedPipe(_inName);
+  APizza* tmpPizza;
 
   while (std::getline(_in->getStream(), line))
     {
@@ -41,9 +42,10 @@ void KitchenHandling::execute()
         _out->getStream() << cookerState(cookers) << std::endl;
       else
         {
-          //tmpPizza = factory.unpack(line);
-          //cooker.queueTask(Cook(tmpPizza));
+          tmpPizza = PizzaFactory::unpackPizza(line);
+          cookers.queueTask(new Cook(*tmpPizza));
         }
+      cookers.executeQueuedTask();
     }
   delete _in;
   delete _out;

@@ -10,6 +10,8 @@
 # include "ThreadPool.hpp"
 # include "Cook.hpp"
 # include "PThread.hpp"
+# include "APizza.hpp"
+# include "PizzaFactory.hpp"
 
 class KitchenHandling : public ITask
 {

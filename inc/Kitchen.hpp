@@ -16,6 +16,8 @@ public:
   Kitchen(const std::string& name, size_t nbCookers);
   virtual ~Kitchen();
 
+  void newOrder(APizza* pizza);
+
   std::vector<IThread::State> getStatus() const;
 
 private:

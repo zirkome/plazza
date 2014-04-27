@@ -34,10 +34,13 @@ Reception::Reception(float cookMultiplier, size_t cookPerKitchen, float stockRen
   _sizesPizza["L"] = APizza::L;
   _sizesPizza["XL"] = APizza::XL;
   _sizesPizza["XXL"] = APizza::XXL;
-  _sdl = new PThread();
-  _sdl->setTask(new Graphique(*this));
+
+  _sdl = NULL;
+//  _sdl = new PThread();
+//  _sdl->setTask(new Graphique(*this));
+
   tmp << _KitchenCounter;
-  _kitchens.push_back(new Kitchen(tmp.str(), _cookMultiplier));
+  _kitchens.push_back(new Kitchen(tmp.str(), _cookPerKitchen));
   ++_KitchenCounter;
 }
 
@@ -164,23 +167,43 @@ void Reception::run()
       lexLine(tokens);
 
       for (std::list<Reception::Lexem>::iterator it = _lex.begin(), end = _lex.end();
-      	   it != end; ++it)
-      	{
-	  if (*it == UNKNOWN)
-	    {
-	      std::cerr << "Your command is invalid" << std::endl;
-	      break;
-	    }
-      	}
+           it != end; ++it)
+        {
+          if (*it == UNKNOWN)
+            {
+              std::cerr << "Your command is invalid" << std::endl;
+              break;
+            }
+        }
 
       parseLexem(tokens);
       _lex.clear();
+
       for (std::deque<Kitchen*>::iterator it = _kitchens.begin(), end = _kitchens.end();
            it != end; ++it)
         {
           (*it)->getStatus();
         }
 
+      //check here terminated commands
+
+      //add new pizza commands
+      for (std::deque<Command*>::const_iterator it = _commands.begin(), end = _commands.end();
+           it != end; ++it)
+        {
+          const std::list<APizza*>& pizzaList = (*it)->getPizzas();
+          for (std::list<APizza*>::const_iterator jt = pizzaList.begin(), end = pizzaList.end();
+               jt != end; ++jt)
+            {
+              for (std::deque<Kitchen*>::const_iterator kt = _kitchens.begin(), end = _kitchens.end();
+                   kt != end; ++kt)
+                {
+                  (*kt)->newOrder((*jt));
+                }
+            }
+        }
+
       std::cout << "La Piazza> ";
     }
 }
+

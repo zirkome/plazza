@@ -24,13 +24,18 @@ Kitchen::~Kitchen()
   delete _process;
 }
 
+void Kitchen::newOrder(APizza* pizza)
+{
+  _out->getStream() << PizzaFactory::packPizza(*pizza) << std::endl;
+}
+
 std::vector<IThread::State> Kitchen::getStatus() const
 {
   _out->getStream() << "STATUS" << std::endl;
   std::string status;
 
   std::getline(_in->getStream(), status);
-  std::cout << status << std::endl;
+  std::cout << "Status " << status << std::endl;
 
   return std::vector<IThread::State>();
 }

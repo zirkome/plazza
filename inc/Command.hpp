@@ -14,6 +14,8 @@ public:
   bool			hasPizza(const APizza &pizza) const;
   bool			isFinished(void) const;
 
+  const std::list<APizza*>& getPizzas() const {return _pizzas;};
+
 private:
   std::list<APizza *>	_pizzas;
 };
