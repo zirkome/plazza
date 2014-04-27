@@ -1,6 +1,8 @@
+#include <list>
+
 #include "Command.hpp"
 
-Command::Command(const std::vector<APizza *> &pizzas)
+Command::Command(const std::list<APizza *> &pizzas)
   : _pizzas(pizzas)
 {
 }
@@ -11,7 +13,7 @@ Command::~Command()
 
 bool	Command::hasPizza(const APizza &pizza) const
 {
-  for (std::vector<APizza *>::const_iterator it = _pizzas.begin(),
+  for (std::list<APizza *>::const_iterator it = _pizzas.begin(),
 	 end = _pizzas.end(); it != end; ++it)
     {
       if ((*it)->getType() == pizza.getType() &&
@@ -27,7 +29,7 @@ bool	Command::hasPizza(const APizza &pizza) const
 
 bool	Command::isFinished(void) const
 {
-  for (std::vector<APizza *>::const_iterator it = _pizzas.begin(),
+  for (std::list<APizza *>::const_iterator it = _pizzas.begin(),
 	 end = _pizzas.end(); it != end; ++it)
     {
       if ((*it)->isDone() == false)
