@@ -20,10 +20,10 @@ void KitchenHandling::execute()
 
   while (true)
     {
-
-//read a command
-
-
+//read
+//if a command
+//cooker.queueTask(Cook(new APizza(commandePizza)));
+//else if status poll
 //write status info
 
     }
