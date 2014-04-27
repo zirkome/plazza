@@ -10,13 +10,13 @@
 
 #include "Kitchen.hpp"
 
-Kitchen::Kitchen(const std::string& name, size_t nbCookers)
+Kitchen::Kitchen(const std::string& name, float cookMultiplier, size_t nbCookers, float stockRenewalTime)
   : _process(NULL)
 {
   std::string inName = std::string("/tmp/kitin") + name;
   std::string outName = std::string("/tmp/kitout") + name;
 
-  KitchenHandling *tmp = new KitchenHandling(outName, inName, nbCookers);
+  KitchenHandling *tmp = new KitchenHandling(outName, inName, cookMultiplier, nbCookers, stockRenewalTime);
   _process = new ProcUnix(*tmp);
   _in = new InNamedPipe(inName);
   _out = new OutNamedPipe(outName);

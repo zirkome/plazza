@@ -13,7 +13,7 @@
 class Kitchen
 {
 public:
-  Kitchen(const std::string& name, size_t nbCookers);
+  Kitchen(const std::string& name, float cookMultiplier, size_t nbCookers, float stockRenewalTime);
   virtual ~Kitchen();
 
   void newOrder(APizza* pizza);

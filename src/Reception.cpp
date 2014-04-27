@@ -39,7 +39,7 @@ Reception::Reception(float cookMultiplier, size_t cookPerKitchen, float stockRen
 //  _sdl->setTask(new Graphique(*this));
 
   tmp << _KitchenCounter;
-  _kitchens.push_back(new Kitchen(tmp.str(), _cookPerKitchen));
+  _kitchens.push_back(new Kitchen(tmp.str(), cookMultiplier, _cookPerKitchen, stockRenewalTime));
   ++_KitchenCounter;
 }
 

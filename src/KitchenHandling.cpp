@@ -5,8 +5,8 @@
 
 #include "KitchenHandling.hpp"
 
-KitchenHandling::KitchenHandling(const std::string& inName, const std::string& outName, size_t nbCookers)
-  : _inName(inName), _outName(outName), _nbCookers(nbCookers)
+KitchenHandling::KitchenHandling(const std::string& inName, const std::string& outName, float cookMultiplier, size_t nbCookers, float stockRenewalTime)
+  : _inName(inName), _outName(outName), _cookMultiplier(cookMultiplier), _nbCookers(nbCookers), _stockRenewalTime(stockRenewalTime)
 {
 }
 

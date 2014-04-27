@@ -16,7 +16,7 @@
 class KitchenHandling : public ITask
 {
 public:
-  KitchenHandling(const std::string& inName, const std::string& outName, size_t nbCookers);
+  KitchenHandling(const std::string& inName, const std::string& outName, float cookMultiplier, size_t nbCookers, float stockRenewalTime);
   ~KitchenHandling();
 
   virtual void execute();
@@ -29,7 +29,9 @@ private:
   std::string _outName;
   InNamedPipe* _in;
   OutNamedPipe* _out;
+  float _cookMultiplier;
   size_t _nbCookers;
+  float _stockRenewalTime;
 };
 
 #endif // KITCHENHANDLING_HPP_INCLUDED
