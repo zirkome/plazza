@@ -156,6 +156,11 @@ void Reception::run()
   std::cout << "La Piazza> ";
   while(std::getline(std::cin, line))
     {
+      if (line.size() == 0)
+	{
+	  std::cout << "La Piazza> ";
+	  continue;
+	}
       replaceAll(line, ";", " ; ");
       std::istringstream iss(line);
       std::vector<std::string> tokens;
