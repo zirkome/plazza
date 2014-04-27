@@ -23,3 +23,21 @@ APizza* PizzaFactory::newPizza(APizza::TypePizza type,
     }
   return NULL;
 }
+
+APizza* PizzaFactory::unpackPizza(std::string const &toDeserialize)
+{
+  std::istringstream iss(toDeserialize);
+  int type;
+  int size;
+
+  iss >> type >> size;
+  return (PizzaFactory::newPizza((APizza::TypePizza) type, (APizza::TaillePizza) size));
+}
+
+std::string& PizzaFactory::packPizza(APizza const &toSerialize)
+{
+  std::ostringstream oss;
+
+  oss << toSerialize.getType() << " " << toSerialize.getSize();
+  return (* new std::string(oss.str()));
+}
