@@ -7,7 +7,8 @@ SRC		=	main.cpp \
 			PCondVar.cpp \
 			ScopeLock.cpp \
 			ProcUnix.cpp \
-			NamedPipe.cpp \
+			InNamedPipe.cpp \
+			OutNamedPipe.cpp \
 			TimeHandling.cpp \
 			Fault.cpp \
 			Reception.cpp \
@@ -21,7 +22,9 @@ SRC		=	main.cpp \
 			Regina.cpp \
 			Margarita.cpp \
 			Fantasia.cpp \
-			Americana.cpp
+			Americana.cpp \
+			PizzaFactory.cpp \
+			Command.cpp
 
 CC		=	g++
 FILETYPE	=	.cpp

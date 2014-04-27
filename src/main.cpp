@@ -2,7 +2,6 @@
 #include <exception>
 #include <stdexcept>
 #include <sstream>
-
 #include <unistd.h>
 
 #include "Reception.hpp"
@@ -19,7 +18,9 @@ int main(int argc, char *argv[])
 
       if (argc != 4)
         {
-          std::cerr << "Usage: " << argv[0] << " multiplier cooker_per_kitchen stockRenewalTime" << std::endl;
+          std::cerr << "Usage: " << argv[0]
+		    << " multiplier cooker_per_kitchen stockRenewalTime"
+		    << std::endl;
           return (1);
         }
       ss.str(argv[1]);
@@ -36,7 +37,7 @@ int main(int argc, char *argv[])
 
       Reception boboPizza(multiplier, cookPerKitchen, stockRenewalTime);
 
-      boboPizza.openPizza();
+      boboPizza.run();
     }
   catch (const std::exception& e)
     {
