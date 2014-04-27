@@ -9,6 +9,7 @@
 # include "OutNamedPipe.hpp"
 # include "ThreadPool.hpp"
 # include "Cook.hpp"
+# include "PThread.hpp"
 
 class KitchenHandling : public ITask
 {
@@ -19,7 +20,7 @@ public:
   virtual void execute();
 
 private:
-  std::string cookerState() const;
+  std::string cookerState(const ThreadPool<PThread>& cookers) const;
 
 private:
   std::string _inName;
