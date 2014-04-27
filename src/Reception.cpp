@@ -86,17 +86,21 @@ void Reception::lexLine(const std::vector<std::string>& tokens)
 
 void Reception::parseLexem()
 {
+  int	i;
   std::list<APizza *> pizzas;
-
+  
+  i = 0;
   for (std::list<Reception::Lexem>::iterator it = _lex.begin(), end = _lex.end();
        it != end; ++it)
     {
-      if (*it == TYPE)
-	{
-
-	}
-      //      pizzas.push_back(PizzaFactory::newPizza());
+      if (i == (COMMA + 1))
+	i = 0;
+      if (!(i == *it))
+	std::cout << "ERROR: not ok" << std::endl;
+      ++i;
     }
+  if (i == COMMA + 1)
+    std::cout << "ERROR: not ok" << std::endl;
 }
 
 void Reception::run()
