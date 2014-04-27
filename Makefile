@@ -22,6 +22,7 @@ SRC		=	main.cpp \
 			Margarita.cpp \
 			Fantasia.cpp \
 			Americana.cpp \
+			PizzaFactory.cpp \
 			Command.cpp
 
 CC		=	g++

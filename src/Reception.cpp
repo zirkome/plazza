@@ -7,6 +7,7 @@
 
 #include "Reception.hpp"
 #include "PThread.hpp"
+#include "PizzaFactory.hpp"
 
 Reception::Reception(float cookMultiplier, size_t cookPerKitchen, float stockRenewalTime)
   : _time(1.0 / (stockRenewalTime / 1000.0)), _cookMultiplier(cookMultiplier),
@@ -69,7 +70,7 @@ bool Reception::isNumber(const std::string& lex) const
   if (lex.at(0) == 'x')
     {
       std::string	str;
-      
+
       str = lex.substr(1, lex.size() - 1);
       std::string::const_iterator it = str.begin();
       while (it != str.end() && std::isdigit(*it)) ++it;
@@ -83,7 +84,7 @@ Reception::Lexem Reception::findType(const std::string& lex) const
 {
   std::map<std::string, Reception::Lexem>::const_iterator it
     = _lexems.find(lex);
-  
+
   if (it != _lexems.end())
     return it->second;
   else if (isNumber(lex))
@@ -103,7 +104,7 @@ void Reception::lexLine(const std::vector<std::string>& tokens)
 void Reception::parseLexem(const std::vector<std::string>& tokens)
 {
   int	i;
-  
+
   i = 0;
   for (std::list<Reception::Lexem>::iterator it = _lex.begin(),
 	 end = _lex.end(); it != end; ++it)
@@ -111,15 +112,21 @@ void Reception::parseLexem(const std::vector<std::string>& tokens)
       if (i == (COMMA + 1))
 	i = 0;
       if (!(i == *it))
-	std::cout << "ERROR: not ok" << std::endl;
+	{
+	  std::cerr << "Your command is invalid" << std::endl;
+	  return ;
+	}
       ++i;
     }
   if (i == COMMA + 1)
-    std::cout << "ERROR: not ok" << std::endl;
-  fillPizzaList(tokens);    
+    {
+      std::cerr << "Your command is invalid" << std::endl;
+      return ;
+    }
+  fillPizzaList(tokens);
 }
 
-std::list<APizza *> Reception::fillPizzaList(const std::vector<std::string>& tokens)
+void Reception::fillPizzaList(const std::vector<std::string>& tokens)
 {
   std::list<APizza *> pizzas;
   APizza::TypePizza type;
@@ -129,16 +136,14 @@ std::list<APizza *> Reception::fillPizzaList(const std::vector<std::string>& tok
   for (size_t tok = 0; tok <= (tokens.size() - 1); tok += 4)
     {
       type = _typesPizza[tokens[tok]];
-      size = _sizesPizza[tokens[tok+1]];
-      nb = atoi((tokens[tok+2].substr(1, tokens[tok+2].size()-1)).c_str());
+      size = _sizesPizza[tokens[tok + 1]];
+      nb = atoi((tokens[tok + 2].substr(1, tokens[tok + 2].size() - 1)).c_str());
       for (; nb > 0; --nb)
 	{
-	  std::cout << "new pizza: type=" << type
-		    << " size=" << size << std::endl;
-	  // pizzas.push_back(pizza);
+	  pizzas.push_back(PizzaFactory::newPizza(type, size));
 	}
     }
-  return pizzas;
+  _commands.push_back(new Command(pizzas));
 }
 
 void Reception::run()

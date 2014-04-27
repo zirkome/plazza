@@ -30,7 +30,6 @@ public:
   Reception(float cookMultiplier, size_t cookPerKitchen, float stockRenewalTime);
   ~Reception();
 
-  // void parseLine(const std::vector<std::string>& tokens);
   void run();
 
 private:
@@ -38,7 +37,8 @@ private:
   Lexem findType(const std::string& lex) const;
   void lexLine(const std::vector<std::string>& tokens);
   void parseLexem(const std::vector<std::string>& tokens);
-  std::list<APizza *> fillPizzaList(const std::vector<std::string>& tokens);
+  void fillPizzaList(const std::vector<std::string>& tokens);
+
 private:
   TimeHandler _time;
 
