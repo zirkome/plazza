@@ -22,9 +22,8 @@ void KitchenHandling::execute()
   _out = new OutNamedPipe(_outName);
   _in = new InNamedPipe(_inName);
 
-  while (true)
+  while (std::getline(_in->getStream(), line))
     {
-      std::getline(_in->getStream(), line);
       if (line == "STATUS")
         {
           std::string threadStatus;
@@ -40,7 +39,7 @@ void KitchenHandling::execute()
         }
       else
         {
-          std::cout << "Not Implemented" << std::endl;
+          _out->getStream() << "Not Implemented" << std::endl;
 //cooker.queueTask(Cook(new APizza(commandePizza)));
         }
     }
