@@ -20,11 +20,7 @@ void KitchenHandling::execute()
 
   while (true)
     {
-
-//read a command
-
-
-//write status info
-
+      //read a command
+      //write status info
     }
 }
