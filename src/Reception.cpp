@@ -164,15 +164,17 @@ void Reception::run()
       lexLine(tokens);
 
       for (std::list<Reception::Lexem>::iterator it = _lex.begin(), end = _lex.end();
-           it != end; ++it)
-        {
-          if (*it == UNKNOWN)
-            std::cerr << "Your command is invalid" << std::endl;
-        }
+      	   it != end; ++it)
+      	{
+	  if (*it == UNKNOWN)
+	    {
+	      std::cerr << "Your command is invalid" << std::endl;
+	      break;
+	    }
+      	}
 
       parseLexem(tokens);
       _lex.clear();
-
       for (std::deque<Kitchen*>::iterator it = _kitchens.begin(), end = _kitchens.end();
            it != end; ++it)
         {
