@@ -1,10 +1,11 @@
-#include "PThread.hpp"
+#include <string>
 
+#include "PThread.hpp"
 #include "Cook.hpp"
 
 #include "KitchenHandling.hpp"
 
-KitchenHandling::KitchenHandling(INamedPipe &in, INamedPipe &out, size_t nbCookers)
+KitchenHandling::KitchenHandling(InNamedPipe &in, OutNamedPipe &out, size_t nbCookers)
   : _in(in), _out(out), _nbCookers(nbCookers)
 {
 }
@@ -17,10 +18,18 @@ KitchenHandling::~KitchenHandling()
 void KitchenHandling::execute()
 {
   ThreadPool<PThread> cookers(_nbCookers);
+  std::string line;
 
   while (true)
     {
-      //read a command
-      //write status info
+      std::getline(_in, line);
+      if (line == "STATUS")
+        {
+          _out <<  << std::endl;
+        }
+      else
+        {
+	  //cooker.queueTask(Cook(new APizza(commandePizza)));
+        }
     }
 }

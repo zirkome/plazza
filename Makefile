@@ -7,7 +7,8 @@ SRC		=	main.cpp \
 			PCondVar.cpp \
 			ScopeLock.cpp \
 			ProcUnix.cpp \
-			NamedPipe.cpp \
+			InNamedPipe.cpp \
+			OutNamedPipe.cpp \
 			TimeHandling.cpp \
 			Fault.cpp \
 			Reception.cpp \
