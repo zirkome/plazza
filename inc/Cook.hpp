@@ -1,6 +1,7 @@
 #ifndef COOKER_H
 # define COOKER_H
 
+# include "OutNamedPipe.hpp"
 # include "ITask.hpp"
 # include "APizza.hpp"
 

@@ -19,11 +19,28 @@ Reserve::~Reserve()
   delete _mutex;
 }
 
-void Reserve::consume(APizza::Ingredients ingr)
+bool Reserve::consume(const APizza& pizza)
+{
+  const std::vector<APizza::Ingredients>& ingr = pizza.getIngredients();
+  bool ok = true;
+
+  for (std::vector<APizza::Ingredients>::const_iterator it = ingr.begin(), end = ingr.end();
+       it != end; ++it)
+    {
+      if (!consume((*it)))
+        ok = false;
+    }
+  return ok;
+}
+
+bool Reserve::consume(APizza::Ingredients ingr)
 {
   ScopeLock sl(*_mutex);
   if (_ingredients[ingr] > 0)
     --_ingredients[ingr];
+  else
+    return false;
+  return true;
 }
 
 void Reserve::regenerate()

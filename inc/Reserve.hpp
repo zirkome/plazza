@@ -15,7 +15,9 @@ public:
   virtual ~Reserve();
 
 public:
-  void consume(APizza::Ingredients ingr);
+
+  bool consume(const APizza& pizza);
+  bool consume(APizza::Ingredients ingr);
   void regenerate();
 
 private:

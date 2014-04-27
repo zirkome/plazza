@@ -30,7 +30,7 @@ private:
   std::string _outName;
   InNamedPipe* _in;
   OutNamedPipe* _out;
-  Reserve res;
+  Reserve _res;
 
   float _cookMultiplier;
   size_t _nbCookers;

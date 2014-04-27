@@ -43,9 +43,11 @@ void KitchenHandling::execute()
       else
         {
           tmpPizza = PizzaFactory::unpackPizza(line);
+          _res.consume(*tmpPizza);
           cookers.queueTask(new Cook(*tmpPizza));
         }
       cookers.executeQueuedTask();
+      _res.regenerate();
     }
   delete _in;
   delete _out;
