@@ -1,5 +1,6 @@
-#include "PThread.hpp"
+#include <string>
 
+#include "PThread.hpp"
 #include "Cook.hpp"
 
 #include "KitchenHandling.hpp"
@@ -17,14 +18,18 @@ KitchenHandling::~KitchenHandling()
 void KitchenHandling::execute()
 {
   ThreadPool<PThread> cookers(_nbCookers);
+  std::string line;
 
   while (true)
     {
-//read
-//if a command
+      std::getline(_in, line);
+      if (line == "STATUS")
+        {
+          _out <<  << std::endl;
+        }
+      else
+        {
 //cooker.queueTask(Cook(new APizza(commandePizza)));
-//else if status poll
-//write status info
-
+        }
     }
 }

@@ -20,8 +20,6 @@ private:
   InNamedPipe& _in;
   OutNamedPipe& _out;
   size_t _nbCookers;
-
-  //std::deque<Cook> _furnaces;
 };
 
 #endif // KITCHENHANDLING_HPP_INCLUDED
