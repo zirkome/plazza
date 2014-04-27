@@ -12,6 +12,7 @@ class Reception;
 
 # include "Kitchen.hpp"
 # include "TimeHandling.hpp"
+# include "APizza.hpp"
 
 class Reception
 {
@@ -36,8 +37,8 @@ private:
   bool isNumber(const std::string& lex) const;
   Lexem findType(const std::string& lex) const;
   void lexLine(const std::vector<std::string>& tokens);
-  void parseLexem();
-
+  void parseLexem(const std::vector<std::string>& tokens);
+  std::list<APizza *> fillPizzaList(const std::vector<std::string>& tokens);
 private:
   TimeHandler _time;
 
@@ -51,6 +52,8 @@ private:
   std::deque<Command*> _commands;
   std::list<Lexem> _lex;
   std::map<std::string, Lexem> _lexems;
+  std::map<std::string, APizza::TypePizza> _typesPizza;
+  std::map<std::string, APizza::TaillePizza> _sizesPizza;
 };
 
 #endif // RECEPTION_HPP_INCLUDED

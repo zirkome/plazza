@@ -24,7 +24,15 @@ Reception::Reception(float cookMultiplier, size_t cookPerKitchen, float stockRen
   _lexems["XL"] = Reception::SIZE;
   _lexems["XXL"] = Reception::SIZE;
   _lexems[";"] = Reception::COMMA;
-
+  _typesPizza["regina"] = APizza::Regina;
+  _typesPizza["margarita"] = APizza::Margarita;
+  _typesPizza["americaine"] = APizza::Americaine;
+  _typesPizza["fantasia"] = APizza::Fantasia;
+  _sizesPizza["S"] = APizza::S;
+  _sizesPizza["M"] = APizza::M;
+  _sizesPizza["L"] = APizza::L;
+  _sizesPizza["XL"] = APizza::XL;
+  _sizesPizza["XXL"] = APizza::XXL;
   _sdl = new PThread();
   _sdl->setTask(new Graphique(*this));
   tmp << _KitchenCounter;
@@ -59,7 +67,15 @@ void replaceAll(std::string& str, const std::string& from, const std::string& to
 bool Reception::isNumber(const std::string& lex) const
 {
   if (lex.at(0) == 'x')
-    return true;
+    {
+      std::string	str;
+      
+      str = lex.substr(1, lex.size() - 1);
+      std::string::const_iterator it = str.begin();
+      while (it != str.end() && std::isdigit(*it)) ++it;
+      if (it == str.end() && !str.empty())
+	return true;
+    }
   return false;
 }
 
@@ -67,7 +83,7 @@ Reception::Lexem Reception::findType(const std::string& lex) const
 {
   std::map<std::string, Reception::Lexem>::const_iterator it
     = _lexems.find(lex);
-
+  
   if (it != _lexems.end())
     return it->second;
   else if (isNumber(lex))
@@ -84,14 +100,13 @@ void Reception::lexLine(const std::vector<std::string>& tokens)
     }
 }
 
-void Reception::parseLexem()
+void Reception::parseLexem(const std::vector<std::string>& tokens)
 {
   int	i;
-  std::list<APizza *> pizzas;
   
   i = 0;
-  for (std::list<Reception::Lexem>::iterator it = _lex.begin(), end = _lex.end();
-       it != end; ++it)
+  for (std::list<Reception::Lexem>::iterator it = _lex.begin(),
+	 end = _lex.end(); it != end; ++it)
     {
       if (i == (COMMA + 1))
 	i = 0;
@@ -101,6 +116,29 @@ void Reception::parseLexem()
     }
   if (i == COMMA + 1)
     std::cout << "ERROR: not ok" << std::endl;
+  fillPizzaList(tokens);    
+}
+
+std::list<APizza *> Reception::fillPizzaList(const std::vector<std::string>& tokens)
+{
+  std::list<APizza *> pizzas;
+  APizza::TypePizza type;
+  APizza::TaillePizza size;
+  int nb = 0;
+
+  for (size_t tok = 0; tok <= (tokens.size() - 1); tok += 4)
+    {
+      type = _typesPizza[tokens[tok]];
+      size = _sizesPizza[tokens[tok+1]];
+      nb = atoi((tokens[tok+2].substr(1, tokens[tok+2].size()-1)).c_str());
+      for (; nb > 0; --nb)
+	{
+	  std::cout << "new pizza: type=" << type
+		    << " size=" << size << std::endl;
+	  // pizzas.push_back(pizza);
+	}
+    }
+  return pizzas;
 }
 
 void Reception::run()
@@ -127,7 +165,7 @@ void Reception::run()
 	    std::cerr << "Your command is invalid" << std::endl;
       	}
 
-      parseLexem();
+      parseLexem(tokens);
       _lex.clear();
       std::cout << "La Piazza> ";
     }
