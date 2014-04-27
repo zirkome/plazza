@@ -14,7 +14,9 @@ public:
   InNamedPipe(const std::string &path);
   virtual ~InNamedPipe();
 
-  std::string   read();
+  std::string read();
+
+  std::ifstream& getStream() {return _fs;};
 };
 
 #endif /* !INNAMEDPIPE_HPP_ */

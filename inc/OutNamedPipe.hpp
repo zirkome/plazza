@@ -15,6 +15,8 @@ public:
   virtual ~OutNamedPipe();
 
   int           write(const std::string &str);
+
+  std::ofstream& getStream() {return _fs;};
 };
 
 #endif /* !OUTNAMEDPIPE_HPP_ */

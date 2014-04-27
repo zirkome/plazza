@@ -9,8 +9,8 @@ Reception::Reception(float cookMultiplier, size_t cookPerKitchen, float stockRen
 {
   std::stringstream tmp;
 
-  _sdl = new PThread();
-  _sdl->setTask(new Graphique(*this));
+//  _sdl = new PThread();
+//  _sdl->setTask(new Graphique(*this));
   tmp << _KitchenCounter;
   _kitchens.push_back(new Kitchen(tmp.str(), _cookMultiplier));
   ++_KitchenCounter;
@@ -19,7 +19,8 @@ Reception::Reception(float cookMultiplier, size_t cookPerKitchen, float stockRen
 Reception::~Reception()
 {
   delete _sdl;
-  for (std::deque<Kitchen*>::iterator it = _kitchens.begin(), end = _kitchens.end(); it != end; ++it)
+  for (std::deque<Kitchen*>::iterator it = _kitchens.begin(), end = _kitchens.end();
+       it != end; ++it)
     {
       delete *it;
     }
@@ -27,4 +28,10 @@ Reception::~Reception()
 
 void Reception::openPizza()
 {
+  while (true)
+    for (std::deque<Kitchen*>::iterator it = _kitchens.begin(), end = _kitchens.end();
+         it != end; ++it)
+      {
+        (*it)->getStatus();
+      }
 }

@@ -3,6 +3,7 @@
 
 # include <string>
 
+# include "IThread.hpp"
 # include "IProcess.hpp"
 # include "InNamedPipe.hpp"
 # include "OutNamedPipe.hpp"
@@ -15,7 +16,7 @@ public:
   Kitchen(const std::string& name, size_t nbCookers);
   virtual ~Kitchen();
 
-
+  std::vector<IThread::State> getStatus() const;
 
 private:
   InNamedPipe* _in;
