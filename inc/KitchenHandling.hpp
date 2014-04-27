@@ -12,6 +12,7 @@
 # include "PThread.hpp"
 # include "APizza.hpp"
 # include "PizzaFactory.hpp"
+# include "Reserve.hpp"
 
 class KitchenHandling : public ITask
 {
@@ -29,6 +30,8 @@ private:
   std::string _outName;
   InNamedPipe* _in;
   OutNamedPipe* _out;
+  Reserve res;
+
   float _cookMultiplier;
   size_t _nbCookers;
   float _stockRenewalTime;
