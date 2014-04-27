@@ -1,3 +1,9 @@
+#include <algorithm>
+#include <sstream>
+#include <iostream>
+#include <string>
+#include <iterator>
+
 #include "ProcUnix.hpp"
 #include "InNamedPipe.hpp"
 #include "OutNamedPipe.hpp"
@@ -33,9 +39,25 @@ std::vector<IThread::State> Kitchen::getStatus() const
 {
   _out->getStream() << "STATUS" << std::endl;
   std::string status;
-
+  std::string state;
+  std::vector<IThread::State> res;
   std::getline(_in->getStream(), status);
-  std::cout << "Status " << status << std::endl;
 
-  return std::vector<IThread::State>();
+  std::istringstream iss(status);
+  std::vector<std::string> tokens;
+  std::copy(std::istream_iterator<std::string>(iss),
+            std::istream_iterator<std::string>(),
+            std::back_inserter< std::vector<std::string> >(tokens));
+
+  for (std::vector<std::string>::const_iterator it = tokens.begin(), end = tokens.end();
+       it != end; ++it)
+    {
+      if ((*it) == "THR_ALIVE")
+        res.push_back(IThread::THR_ALIVE);
+      else if ((*it) == "THR_DEAD")
+        res.push_back(IThread::THR_DEAD);
+      else if ((*it) == "THR_WAITING")
+        res.push_back(IThread::THR_WAITING);
+    }
+  return res;
 }

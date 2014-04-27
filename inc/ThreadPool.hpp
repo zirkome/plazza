@@ -55,7 +55,7 @@ public:
 
     res.reserve(_pool.size());
     for (std::vector<IThread*>::const_iterator it = _pool.begin(), end = _pool.end();
-         it != end && _tasks.size() > 0; ++it)
+         it != end; ++it)
       {
         res.push_back((*it)->getState());
       }
