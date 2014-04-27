@@ -4,20 +4,21 @@
 # include <iostream>
 
 # include "ITask.hpp"
-# include "NamedPipe.hpp"
+# include "InNamedPipe.hpp"
+# include "OutNamedPipe.hpp"
 # include "ThreadPool.hpp"
 
 class KitchenHandling : public ITask
 {
 public:
-  KitchenHandling(INamedPipe &in, INamedPipe &out, size_t nbCookers);
+  KitchenHandling(InNamedPipe &in, OutNamedPipe &out, size_t nbCookers);
   ~KitchenHandling();
 
   virtual void execute();
 
 private:
-  INamedPipe& _in;
-  INamedPipe& _out;
+  InNamedPipe& _in;
+  OutNamedPipe& _out;
   size_t _nbCookers;
 
   //std::deque<Cook> _furnaces;

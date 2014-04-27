@@ -4,7 +4,8 @@
 # include <string>
 
 # include "IProcess.hpp"
-# include "INamedPipe.hpp"
+# include "InNamedPipe.hpp"
+# include "OutNamedPipe.hpp"
 
 # include "KitchenHandling.hpp"
 
@@ -17,8 +18,8 @@ public:
 
 
 private:
-  INamedPipe* _in;
-  INamedPipe* _out;
+  InNamedPipe* _in;
+  OutNamedPipe* _out;
   IProcess *_process;
 };
 

@@ -4,7 +4,7 @@
 
 #include "KitchenHandling.hpp"
 
-KitchenHandling::KitchenHandling(INamedPipe &in, INamedPipe &out, size_t nbCookers)
+KitchenHandling::KitchenHandling(InNamedPipe &in, OutNamedPipe &out, size_t nbCookers)
   : _in(in), _out(out), _nbCookers(nbCookers)
 {
 }
